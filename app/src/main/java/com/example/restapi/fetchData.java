@@ -16,8 +16,9 @@ import java.net.URL;
 public class fetchData extends AsyncTask<Void,Void,Void> {
 
     String data = "";
-    String dataParsed = "";
+    String dataParsedd = "";
     String singleParsed = "";
+    String empty = "      ";
 
     @Override
     protected Void doInBackground(Void... voids) {
@@ -33,8 +34,14 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
             }
             JSONArray ja = new JSONArray(data);
             for(int i =0; i<ja.length(); i++){
-                JSONObject jo = (JSONObject) ja.get(i);
 
+                JSONObject jo = (JSONObject) ja.get(i);
+                singleParsed="Name    :" + jo.get("name") + "\n" +
+                             "Password:" + jo.get("password") + "\n" +
+                             "Contact :" + jo.get("contact") + "\n" +
+                             "Country :" + jo.get("country") + "\n"+
+                             "        " + empty + "\n";
+                dataParsedd = dataParsedd + singleParsed;
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -51,6 +58,6 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
-        MainActivity.data.setText(this.data);
+        MainActivity.data.setText(this.dataParsedd);
     }
 }
